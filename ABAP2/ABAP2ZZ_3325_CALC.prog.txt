@@ -1,0 +1,25 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_CALC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_CALC MESSAGE-ID ZZ_3325_MESSAGES.
+
+PARAMETERS: zahl_1 TYPE i,
+            Zahl_2 TYPE i.
+DATA: ergebnis TYPE p DECIMALS 2,
+      text TYPE string.
+
+
+AT SELECTION-SCREEN.
+DATA r_variable TYPE REF TO CX_ROOT.
+TRY.
+  ergebnis = zahl_1 / zahl_2.
+CATCH CX_SY_ARITHMETIC_ERROR INTO r_variable.
+  text = r_variable->get_text( ).
+  MESSAGE text TYPE 'E'.
+*  MESSAGE e000.
+ENDTRY.
+
+START-OF-SELECTION.
+WRITE: / zahl_1, '/', zahl_2, '=', ergebnis.

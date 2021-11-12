@@ -1,0 +1,4 @@
+method ONACTIONWEITER .
+  wd_this->fire_to_result_view_plg(
+  ).
+endmethod.

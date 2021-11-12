@@ -1,0 +1,28 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_1432_PVERWALTUNG_USER_COI02.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Module  USER_COMMAND_0200  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0200 INPUT.
+
+  CASE ok_code.
+
+    WHEN 'SAVE'.
+        IF ZZ1432_PROSP <> wa_prosp.
+           MODIFY ZZ1432_PROSP FROM ZZ1432_PROSP.
+            IF sy-subrc = 0.
+                MESSAGE s019 WITH ZZ1432_PROSP-PROSPID.
+            ENDIF.
+        ENDIF.
+
+    WHEN 'BACK'.
+      LEAVE TO SCREEN 100.
+    WHEN 'LEAVE'.
+      LEAVE PROGRAM.
+  ENDCASE.
+
+  CLEAR ok_code.
+ENDMODULE.

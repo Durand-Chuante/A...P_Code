@@ -1,0 +1,19 @@
+*&---------------------------------------------------------------------*
+*& Report  ZZ_CI
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT  ZZ_A2_CI.
+
+DATA itab TYPE TABLE OF spfli.
+DATA wa TYPE spfli.
+
+SELECT * FROM spfli  INTO TABLE itab WHERE carrid = 'LH'.
+  " TODO: Ausgabe verschönern / make nicer output
+  LOOP AT itab INTO wa.
+    WRITE: / wa-connid, wa-cityfrom, wa-cityto.
+  ENDLOOP.
+*ENDSELECT.

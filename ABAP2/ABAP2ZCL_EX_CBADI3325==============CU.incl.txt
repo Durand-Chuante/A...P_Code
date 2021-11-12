@@ -1,0 +1,10 @@
+class ZCL_EX_CBADI3325 definition
+  public
+  final
+  create public .
+
+public section.
+
+  interfaces ZIF_EX_CBADI3325 .
+
+  constants VERSION type VERSION value 000001 ##NO_TEXT.

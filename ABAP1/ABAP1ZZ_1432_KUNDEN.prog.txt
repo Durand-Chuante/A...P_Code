@@ -1,0 +1,95 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_KUNDEN
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_KUNDEN MESSAGE-ID ZZ_1432_MESSAGE.
+
+DATA switch TYPE n VALUE '1'.
+TABLES sscrfields.
+DATA wa TYPE SCUSTOM.
+
+SELECTION-SCREEN BEGIN OF SCREEN 800 AS SUBSCREEN.
+  SELECT-OPTIONS: so_name FOR wa-name,
+                  so_stree FOR wa-street MODIF ID abc.
+  SELECTION-SCREEN BEGIN OF LINE.
+    SELECTION-SCREEN COMMENT 1(20) colm.
+    SELECTION-SCREEN POSITION pos_low.
+    SELECT-OPTIONS: so_postc FOR wa-postcode NO INTERVALS NO-EXTENSION,
+                    so_city for wa-city no INTERVALS no-EXTENSION.
+    SELECTION-SCREEN END OF LINE.
+
+    SELECTION-SCREEN PUSHBUTTON 5(10) taste USER-COMMAND wechsel MODIF ID str.
+
+SELECTION-SCREEN END OF SCREEN 800.
+
+SELECTION-SCREEN BEGIN OF SCREEN 900 as SUBSCREEN.
+  SELECT-OPTIONS so_disc FOR wa-discount.
+  PARAMETERS pa_busin RADIOBUTTON GROUP ctyp DEFAULT 'X'.
+  PARAMETERS pa_priva RADIOBUTTON GROUP ctyp.
+SELECTION-SCREEN END OF SCREEN 900.
+
+SELECTION-SCREEN BEGIN OF TABBED BLOCK block1 for 5 LINES.
+  SELECTION-SCREEN  TAB (20) tab1 USER-COMMAND addr
+        DEFAULT SCREEN 800.
+  SELECTION-SCREEN TAB (20) tab2 USER-COMMAND busi
+        DEFAULT SCREEN 900.
+  SELECTION-SCREEN END OF BLOCK block1.
+
+  START-OF-SELECTION.
+
+  DATA typ TYPE c.
+  IF pa_busin = 'X'.
+    typ = 'B'.
+  ELSE.
+    typ = 'P'.
+  ENDIF.
+
+  FORMAT COLOR 1.
+    WRITE: / 'Name', 27 'Straﬂe', 58 'Ort', 81 'Rabatt', 88 'typ'.
+  FORMAT COLOR 2.
+    SELECT * FROM SCUSTOM
+      INTO wa
+      where name IN so_name
+      AND street in so_stree
+      AND postcode IN so_postc
+      AND city in so_city
+      AND discount in so_disc
+      and custtype = typ.
+
+      WRITE: / wa-name, wa-street, wa-city, wa-discount, wa-custtype.
+   ENDSELECT.
+
+   INITIALIZATION.
+   tab1 = 'Adressdaten'.
+   tab2 = 'Businessdaten'.
+   colm = 'PLZ/ORT:'.
+
+DATA wert TYPE c LENGTH 10 VALUE '0123456789'.
+   AT SELECTION-SCREEN on so_city.
+     IF wert CA so_city.
+       MESSAGE e000.
+     ENDIF.
+
+
+AT SELECTION-SCREEN.
+  IF SSCRFIELDS-UCOMM = 'WECHSEL' AND SY-DYNNR = 800.
+    IF switch = '1'.
+      switch = '0'.
+    ELSE.
+      switch = '1'.
+    ENDIF.
+  ENDIF.
+
+  AT SELECTION-SCREEN OUTPUT.
+  LOOP AT SCREEN.
+    IF SCREEN-group1 = 'ABC'.
+      SCREEN-ACTIVE = switch.
+      MODIFY SCREEN.
+    ENDIF.
+    ENDLOOP.
+    IF switch = '1'.
+      taste = 'ausbenden'.
+    ELSE.
+      taste = 'einblenden'.
+    ENDIF.

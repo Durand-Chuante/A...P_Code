@@ -1,0 +1,3 @@
+  method SET_OFFICE.
+    office = im_office.
+  endmethod.

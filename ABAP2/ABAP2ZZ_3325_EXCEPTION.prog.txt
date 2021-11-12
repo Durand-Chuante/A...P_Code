@@ -1,0 +1,42 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_EXCEPTION
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_EXCEPTION.
+
+DATA: wa TYPE SPFLI,
+      text TYPE string,
+      r_variable TYPE REF TO ZCX_3325_EXCEPTION.
+
+TRY.
+CALL METHOD ZCL_3325_FLINFO=>GET_CONNECTIONS
+  EXPORTING
+    IM_CARRID     = 'LH'
+    IM_CONNID     = '0400'
+  RECEIVING
+    RE_CONNECTION = wa.
+
+ WRITE: / wa-cityfrom, wa-cityto.
+
+ CATCH ZCX_3325_EXCEPTION INTO r_variable.
+   text = r_variable->get_text( ).
+
+   WRITE: / text.
+ENDTRY.
+
+TRY.
+CALL METHOD ZCL_3325_FLINFO=>GET_CONNECTIONS
+  EXPORTING
+    IM_CARRID     = 'wH'
+    IM_CONNID     = '0900'
+  RECEIVING
+    RE_CONNECTION = wa.
+
+ WRITE: / wa-cityfrom, wa-cityto.
+
+ CATCH ZCX_3325_EXCEPTION INTO r_variable.
+   text = r_variable->get_text( ).
+
+   WRITE: / text.
+ENDTRY.

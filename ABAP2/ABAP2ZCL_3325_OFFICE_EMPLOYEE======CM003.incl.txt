@@ -1,0 +1,8 @@
+  method CONSTRUCTOR.
+    CALL METHOD super->constructor(
+                 im_name = im_name
+                 im_adresse = im_adresse
+                 im_base_salary = im_base_salary
+                 im_dob = im_dob ).
+                 office = im_office.
+  endmethod.

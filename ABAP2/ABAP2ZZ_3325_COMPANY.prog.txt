@@ -1,0 +1,57 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_COMPANY
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_COMPANY.
+
+INCLUDE ZZ_3325_COMPANY_CLASSES.
+
+DATA: r_employee TYPE REF TO lcl_employee,
+      r_department TYPE REF TO lcl_department,
+*      it_employee TYPE TABLE OF REF TO lcl_employee,
+      count TYPE i,
+      adresse TYPE string,
+      base_salary TYPE i.
+
+START-OF-SELECTION.
+
+CREATE OBJECT r_department EXPORTING im_department_name = 'Einkauf'.
+
+CREATE OBJECT r_employee EXPORTING
+    im_name = 'Meier'
+    im_firstname = 'Hans'
+    im_base_salary = 2000
+    im_dob = '19701012'.
+r_employee->set_adress( EXPORTING im_adress = 'Hauptstr. 19 ' ).
+r_department->add_employee( r_employee ).
+*APPEND r_employee to it_employee.
+
+CREATE OBJECT r_employee EXPORTING
+    im_name = 'Gernd'
+    im_firstname = 'Schmitt'
+    im_base_salary = 3000
+    im_dob = '19601012'.
+r_employee->set_adress( EXPORTING im_adress = 'Wiesenweg. 1 ' ).
+r_department->add_employee( r_employee ).
+*APPEND r_employee to it_employee.
+
+CREATE OBJECT r_employee EXPORTING
+    im_name = 'Dirk'
+    im_firstname = 'Schulz'
+    im_base_salary = 4000
+    im_dob = '19801012'.
+r_employee->set_adress( EXPORTING im_adress = 'Adenauerstr. 13 ' ).
+r_department->add_employee( r_employee ).
+*APPEND r_employee to it_employee.
+
+    r_department->print_department( ).
+
+*LOOP AT it_employee INTO r_employee.
+*  r_employee->print( ).
+*ENDLOOP.
+
+
+lcl_employee=>get_n_o_employee( IMPORTING ex_count = count ).
+
+r_department->avg_salary( ).

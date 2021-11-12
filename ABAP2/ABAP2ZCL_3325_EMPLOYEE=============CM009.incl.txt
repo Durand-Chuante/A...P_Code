@@ -1,0 +1,11 @@
+  method GET_SALARY.
+    DATA age TYPE i.
+    age = ( sy-datum - get_dob( ) ) / 360.
+     IF age > 40 AND age < 50.
+          re_salary = ( get_base_salary( ) * 5 ) / 100 + get_base_salary( ).
+      ELSEIF age > 50.
+          re_salary = ( get_base_salary( ) * 10 ) / 100 + get_base_salary( ).
+      ELSE.
+        re_salary = get_base_salary( ).
+     ENDIF.
+  endmethod.

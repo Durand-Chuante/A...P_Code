@@ -1,0 +1,37 @@
+method READ_BOOKINGS .
+* General Notes
+* =============
+* A common scenario for a supply method is to aquire key
+* informations from the parameter <parent_element> and then
+* to invoke a data provider.
+* A free navigation thru the context, especially to nodes on
+* the same or deeper hierachical level is strongly discouraged,
+* because such a strategy may easily lead to unresolvable
+* situations!!
+
+*  if necessary, get static attributes of parent element
+*  DATA ls_parent_attributes TYPE wd_this->element_flightdata.
+*  parent_element->get_static_attributes(
+*    IMPORTING
+*      static_attributes = ls_parent_attributes ).
+
+*
+** data declaration
+  DATA lt_bookingdata TYPE wd_this->Elements_bookingdata.
+  DATA ls_bookingdata LIKE LINE OF lt_bookingdata.
+  DATA ls_flight TYPE if_componentcontroller=>element_flightdata.
+** @TODO compute values
+** e.g. call a data providing FuBa
+
+parent_element->get_static_attributes(
+  IMPORTING
+    static_attributes = ls_flight ).
+
+select carrid connid fldate bookid customid FROM sbook INTO CORRESPONDING FIELDS OF TABLE lt_bookingdata
+  where carrid = ls_flight-carrid and connid = ls_flight-connid and fldate = ls_flight-fldate.
+** bind all the elements
+  node->bind_table(
+    new_items            =  lt_bookingdata
+    set_initial_elements = abap_true ).
+*
+endmethod.

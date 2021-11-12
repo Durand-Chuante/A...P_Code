@@ -1,0 +1,12 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_SINGLETON
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_SINGLETON.
+
+DATA: r_singleton_1 TYPE REF TO ZCL_3325_SINGLETON,
+      r_singleton_2 TYPE REF TO ZCL_3325_SINGLETON.
+
+r_singleton_1 = ZCL_3325_SINGLETON=>get_singleton( ).
+r_singleton_1 = ZCL_3325_SINGLETON=>get_singleton( ).

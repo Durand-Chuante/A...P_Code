@@ -1,0 +1,3 @@
+  method GET_ADRESSE.
+    re_adresse = adresse.
+  endmethod.

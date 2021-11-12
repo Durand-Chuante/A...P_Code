@@ -1,0 +1,29 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_RTTC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_RTTC.
+DATA: r_table_type TYPE REF TO cl_abap_tabledescr,
+      r_line_type TYPE REF TO cl_abap_structdescr,
+      key TYPE abap_keydescr_tab,
+      r_itab TYPE REF TO data.
+r_line_type ?= cl_abap_typedescr=>describe_by_name('SPFLI').
+APPEND 'CARRID' TO key.
+APPEND 'CONNID' TO key.
+*TRY.
+CALL METHOD CL_ABAP_TABLEDESCR=>CREATE
+  EXPORTING
+    P_LINE_TYPE  = r_line_type
+    P_TABLE_KIND = cl_abap_tabledescr=>tablekind_sorted
+    P_UNIQUE     = ABAP_TRUE
+    P_KEY        = key
+*    P_KEY_KIND   = KEYDEFKIND_DEFAULT
+  RECEIVING
+    P_RESULT     = r_table_type.
+* CATCH CX_SY_TABLE_CREATION .
+*ENDTRY.
+CREATE DATA r_itab TYPE HANDLE r_table_type.
+FIELD-SYMBOLS <fs> TYPE ANY TABLE.
+ASSIGN r_itab->* TO <fs>.
+SELECT * FROM spfli INTO TABLE <fs>.

@@ -1,0 +1,9 @@
+class ZZ_3325_NBADI_CLASS definition
+  public
+  final
+  create public .
+
+public section.
+
+  interfaces IF_BADI_INTERFACE .
+  interfaces ZIF_BADICOUNTRY .

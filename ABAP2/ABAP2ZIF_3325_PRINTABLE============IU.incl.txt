@@ -1,0 +1,6 @@
+interface ZIF_3325_PRINTABLE
+  public .
+
+
+  methods PRINT_OBJECT .
+endinterface.

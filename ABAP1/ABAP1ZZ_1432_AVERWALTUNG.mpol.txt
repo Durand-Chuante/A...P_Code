@@ -1,0 +1,20 @@
+*&---------------------------------------------------------------------*
+*& Modulpool        ZZ_1432_AVERWALTUNG
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+
+INCLUDE ZZ_1432_AVERWALTUNG_TOP                 .    " Global Data
+
+* INCLUDE ZZ_1432_AVERWALTUNG_O01                 .  " PBO-Modules
+* INCLUDE ZZ_1432_AVERWALTUNG_I01                 .  " PAI-Modules
+* INCLUDE ZZ_1432_AVERWALTUNG_F01                 .  " FORM-Routines
+
+
+INCLUDE zz_1432_averwaltung_status_o01.
+
+INCLUDE zz_1432_averwaltung_user_coi01.
+
+INCLUDE zz_1432_averwaltung_status_o02.
+
+INCLUDE zz_1432_averwaltung_user_coi02.

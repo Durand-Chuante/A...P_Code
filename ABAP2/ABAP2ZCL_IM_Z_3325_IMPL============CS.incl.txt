@@ -1,0 +1,21 @@
+class ZCL_IM_Z_3325_IMPL definition
+  public
+  final
+  create public .
+
+public section.
+
+  interfaces ZIF_EX_CBADI3325 .
+protected section.
+private section.
+ENDCLASS.
+
+
+
+CLASS ZCL_IM_Z_3325_IMPL IMPLEMENTATION.
+
+
+  method ZIF_EX_CBADI3325~SHOW_CUSTOMER_DETAILS.
+       WRITE: im_sbook-passname, /.
+  endmethod.
+ENDCLASS.

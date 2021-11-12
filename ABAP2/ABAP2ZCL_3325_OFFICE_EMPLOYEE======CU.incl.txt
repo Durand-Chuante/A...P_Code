@@ -1,0 +1,24 @@
+class ZCL_3325_OFFICE_EMPLOYEE definition
+  public
+  inheriting from ZCL_3325_EMPLOYEE
+  final
+  create public .
+
+public section.
+
+  methods CONSTRUCTOR
+    importing
+      value(IM_NAME) type STRING
+      value(IM_DOB) type D
+      value(IM_BASE_SALARY) type I
+      value(IM_ADRESSE) type STRING
+      value(IM_OFFICE) type STRING .
+  methods SET_OFFICE
+    importing
+      value(IM_OFFICE) type STRING .
+  methods GET_OFFICE
+    returning
+      value(RE_OFFICE) type STRING .
+
+  methods PRINT
+    redefinition .

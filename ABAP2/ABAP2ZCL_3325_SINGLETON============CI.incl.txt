@@ -1,0 +1,7 @@
+private section.
+
+  types:
+    TY_CONNECTION_LIST TYPE TABLE OF SPFLI WITH KEY carrid connid .
+
+  class-data R_INSTANCE type ref to ZCL_3325_SINGLETON .
+  class-data CONNECTION_LIST type TY_CONNECTION_LIST .

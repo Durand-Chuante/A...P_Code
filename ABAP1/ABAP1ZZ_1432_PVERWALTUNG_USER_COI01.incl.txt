@@ -1,0 +1,50 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_1432_PVERWALTUNG_USER_COI01.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Module  USER_COMMAND_0100  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0100 INPUT.
+
+  CASE ok_code.
+
+    WHEN 'SELECT'.
+      SELECT SINGLE * FROM ZZ1432_PROSP INTO wa_prosp
+               WHERE prospid = zz1432_prosp-prospid.
+      IF sy-subrc = 0.
+        MESSAGE s006 WITH ZZ1432_PROSP-PROSPID.
+      ELSE.
+        MESSAGE e007.
+      ENDIF.
+    WHEN 'MODIFY'.
+      SELECT SINGLE * FROM ZZ1432_PROSP INTO wa_prosp
+               WHERE prospid = zz1432_prosp-prospid.
+      IF sy-subrc <> 0.
+        MESSAGE e020.
+      ENDIF.
+    WHEN 'DELETE'.
+        DELETE ZZ1432_PROSP FROM ZZ1432_PROSP.
+      IF sy-subrc = 0.
+        MESSAGE s009 WITH ZZ1432_PROSP-PROSPID.
+        LEAVE to SCREEN 100.
+      ELSE.
+        MESSAGE e020.
+      ENDIF.
+    WHEN 'INSERT'.
+        INSERT INTO ZZ1432_PROSP VALUES ZZ1432_PROSP.
+        IF sy-subrc = 0.
+          MESSAGE s010 WITH ZZ1432_PROSP-PROSPID.
+          LEAVE to SCREEN 100.
+        ELSE.
+          MESSAGE e008.
+        ENDIF.
+          FREE ZZ1432_PROSP-PROSPID.
+    WHEN 'BACK'.
+      LEAVE PROGRAM.
+  ENDCASE.
+
+  CLEAR ok_code.
+
+ENDMODULE.

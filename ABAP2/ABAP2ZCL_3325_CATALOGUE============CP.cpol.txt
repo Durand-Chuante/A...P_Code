@@ -1,0 +1,28 @@
+class-pool .
+*"* class pool for class ZCL_3325_CATALOGUE
+
+*"* local type definitions
+include ZCL_3325_CATALOGUE============ccdef.
+
+*"* class ZCL_3325_CATALOGUE definition
+*"* public declarations
+  include ZCL_3325_CATALOGUE============cu.
+*"* protected declarations
+  include ZCL_3325_CATALOGUE============co.
+*"* private declarations
+  include ZCL_3325_CATALOGUE============ci.
+endclass. "ZCL_3325_CATALOGUE definition
+
+*"* macro definitions
+include ZCL_3325_CATALOGUE============ccmac.
+*"* local class implementation
+include ZCL_3325_CATALOGUE============ccimp.
+
+*"* test class
+include ZCL_3325_CATALOGUE============ccau.
+
+class ZCL_3325_CATALOGUE implementation.
+*"* method's implementations
+  include methods.
+endclass. "ZCL_3325_CATALOGUE implementation
+

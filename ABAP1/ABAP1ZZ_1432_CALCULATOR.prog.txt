@@ -1,0 +1,48 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_CALCULATOR
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_CALCULATOR.
+
+PARAMETERS: operand1 TYPE i,
+            operator TYPE c LENGTH 1,
+            operand2 TYPE i.
+
+DATA ergebnis TYPE i.
+
+CALL FUNCTION 'Z_1432_F_CALC'
+  EXPORTING
+    im_operand1       = operand1
+    im_operand2       = operand2
+    im_operator       = operator
+  IMPORTING
+    EX_ERGEBNIS          = ergebnis
+
+  EXCEPTIONS
+    ZERO_DIVISION  = 1
+    INVALID_OPERATOR = 2.
+
+
+    CASE sy-subrc.
+      WHEN '0'.
+        IF operator = '+'.
+           WRITE: / operand1, '+', operand2, '=', ergebnis.
+        ELSEIF operator = '-'.
+           WRITE: / operand1, '-', operand2, '=', ergebnis.
+        ELSEIF operator = '/'.
+           WRITE: / operand1, '/', operand2, '=', ergebnis.
+        ELSEIF operator = '*'.
+           WRITE: / operand1, '*', operand2, '=', ergebnis.
+        ELSEIF operator = '%'.
+           WRITE: / operand1, '%', operand2, '=', ergebnis.
+        ENDIF.
+      WHEN '1'.
+        WRITE: / 'Nulldivision aufgetreten.'.
+      WHEN '2'.
+        WRITE: / 'Sie haben keinen gueltigen Operator eingegeben.'.
+      WHEN OTHERS.
+
+    ENDCASE.
+
+          .

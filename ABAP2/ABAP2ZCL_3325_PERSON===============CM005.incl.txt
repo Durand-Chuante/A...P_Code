@@ -1,0 +1,3 @@
+  method SET_DOB.
+    dob = im_dob.
+  endmethod.

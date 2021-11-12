@@ -1,0 +1,4 @@
+  method SET_PERCENTAGE.
+
+  percentage = im_percentage.
+  endmethod.

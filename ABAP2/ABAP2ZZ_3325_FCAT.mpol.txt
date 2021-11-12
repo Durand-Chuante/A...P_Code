@@ -1,0 +1,27 @@
+*&---------------------------------------------------------------------*
+*& Modulpool        ZZ_3325_FCAT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+
+INCLUDE ZZ_3325_FCAT_TOP                        .    " Global Data
+
+* INCLUDE ZZ_3325_FCAT_O01                        .  " PBO-Modules
+* INCLUDE ZZ_3325_FCAT_I01                        .  " PAI-Modules
+* INCLUDE ZZ_3325_FCAT_F01                        .  " FORM-Routines
+
+INCLUDE ZZ_3325_FCAT_CLASSES.
+
+INCLUDE zz_3325_fcat_status_0100o01.
+
+INCLUDE zz_3325_fcat_user_command_0i01.
+
+INCLUDE zz_3325_fcat_status_0200o01.
+
+INCLUDE zz_3325_fcat_init_alvo01.
+
+INCLUDE zz_3325_fcat_user_command_0i02.
+
+INCLUDE zz_3325_fcat_status_0300o01.
+
+INCLUDE zz_3325_fcat_user_command_0i03.

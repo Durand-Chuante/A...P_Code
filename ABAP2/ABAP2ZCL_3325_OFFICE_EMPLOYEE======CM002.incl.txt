@@ -1,0 +1,3 @@
+  method GET_OFFICE.
+    re_office = office.
+  endmethod.

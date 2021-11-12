@@ -1,0 +1,14 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_SBOOK
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_SBOOK.
+    DATA: it_book TYPE TABLE OF sbook,
+          wa_book TYPE sbook.
+    SELECT * FROM sbook INTO TABLE it_book.
+      LOOP AT it_book INTO wa_book.
+        WRITE:/ wa_book-passname.
+      ENDLOOP.
+
+      WRITE:/ 'Danke'.

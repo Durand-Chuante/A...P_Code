@@ -1,0 +1,5 @@
+  method PRINT.
+
+  super->print( ).
+  write: 'verkäufe: ', sales, 'Prov. ', percentage.
+  endmethod.

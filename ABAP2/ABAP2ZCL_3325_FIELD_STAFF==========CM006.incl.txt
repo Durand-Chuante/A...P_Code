@@ -1,0 +1,4 @@
+  method GET_SALARY.
+
+   re_salary = get_base_salary( ) + sales * percentage / 100.
+  endmethod.

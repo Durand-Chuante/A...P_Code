@@ -1,0 +1,36 @@
+method READ_PR_TEILLGENOMMEN .
+* General Notes
+* =============
+* A common scenario for a supply method is to aquire key
+* informations from the parameter <parent_element> and then
+* to invoke a data provider.
+* A free navigation thru the context, especially to nodes on
+* the same or deeper hierachical level is strongly discouraged,
+* because such a strategy may easily lead to unresolvable
+* situations!!
+
+*  if necessary, get static attributes of parent element
+*  DATA ls_parent_attributes TYPE wd_this->element_student_daten.
+*  parent_element->get_static_attributes(
+*    IMPORTING
+*      static_attributes = ls_parent_attributes ).
+
+*
+** data declaration
+  DATA lt_pr_teilgenommen TYPE wd_this->Elements_pr_teilgenommen.
+  DATA ls_pr_teilgenommen LIKE LINE OF lt_pr_teilgenommen.
+  DATA ls_zz3325_studis TYPE if_componentcontroller=>element_student_daten.
+** @TODO compute values
+** e.g. call a data providing FuBa
+  parent_element->get_static_attributes(
+    IMPORTING
+      static_attributes = ls_zz3325_studis ).
+  select * FROM zz3325_teilnahme INTO CORRESPONDING FIELDS OF TABLE lt_pr_teilgenommen
+  where matrikelnummer = ls_zz3325_studis-matrikel.
+
+** bind all the elements
+  node->bind_table(
+    new_items            =  lt_pr_teilgenommen
+    set_initial_elements = abap_true ).
+*
+endmethod.

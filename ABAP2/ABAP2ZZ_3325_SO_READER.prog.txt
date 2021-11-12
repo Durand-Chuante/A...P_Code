@@ -1,0 +1,18 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_SO_READER
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_SO_READER.
+
+DATA r_handle TYPE REF TO ZCL_3325_AREA.
+
+r_handle = ZCL_3325_AREA=>attach_for_read( ).
+
+DATA wa TYPE SPFLI.
+DATA itab TYPE TABLE OF SPFLI.
+SELECT * FROM SPFLI INTO TABLE itab.
+LOOP AT itab INTO wa.
+  WRITE: / wa-carrid, wa-connid, wa-cityfrom, wa-cityto.
+ENDLOOP.
+r_handle->detach( ).

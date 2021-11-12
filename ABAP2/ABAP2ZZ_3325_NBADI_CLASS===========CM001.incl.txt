@@ -1,0 +1,6 @@
+  method ZIF_BADICOUNTRY~SHOW_MORE.
+    DATA number TYPE i.
+        SELECT COUNT(*) FROM sflight JOIN spfli ON sflight~carrid = spfli~carrid
+          AND sflight~connid = spfli~connid INTO number WHERE countryto = im_country.
+      WRITE:  number, 'Fluge in der Datenbank'.
+  endmethod.

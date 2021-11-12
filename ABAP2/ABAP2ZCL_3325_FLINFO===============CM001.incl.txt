@@ -1,0 +1,10 @@
+  method GET_N_O_CONNECTIONS.
+    DATA: wa TYPE SPFLI,
+          anzahl TYPE i.
+    LOOP AT ZCL_3325_SINGLETON=>connection_list INTO wa.
+      IF wa-carrid = im_carrid.
+        anzahl = anzahl + 1.
+      ENDIF.
+    ENDLOOP.
+    re_n_o_connections = anzahl.
+  endmethod.

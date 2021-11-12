@@ -1,0 +1,65 @@
+method ONACTIONAUSWAEHLEN .
+  DATA message TYPE string.
+  IF sy-subrc eq 0.
+*     get message manager
+    data lo_api_controller     type ref to if_wd_controller.
+    data lo_message_manager    type ref to if_wd_message_manager.
+
+    lo_api_controller ?= wd_This->Wd_Get_Api( ).
+
+    CALL METHOD lo_api_controller->GET_MESSAGE_MANAGER
+      RECEIVING
+        MESSAGE_MANAGER = lo_message_manager
+        .
+
+*     report message
+    CALL METHOD lo_message_manager->REPORT_SUCCESS
+      EXPORTING
+        MESSAGE_TEXT              = 'Valid Aktion'
+*        PARAMS                    =
+*        MSG_USER_DATA             =
+*        IS_PERMANENT              = ABAP_FALSE
+*        SCOPE_PERMANENT_MSG       = CO_MSG_SCOPE_CONTROLLER
+*        VIEW                      =
+*        SHOW_AS_POPUP             =
+*        CONTROLLER_PERMANENT_MSG  =
+*        MSG_INDEX                 =
+*        CANCEL_NAVIGATION         =
+*        ENABLE_MESSAGE_NAVIGATION =
+*        COMPONENT                 =
+      RECEIVING
+        MESSAGE_ID                = message
+        .
+   ELSE.
+**      get message manager
+*     data lo_api_controller     type ref to if_wd_controller.
+*     data lo_message_manager    type ref to if_wd_message_manager.
+
+     lo_api_controller ?= wd_This->Wd_Get_Api( ).
+
+     CALL METHOD lo_api_controller->GET_MESSAGE_MANAGER
+       RECEIVING
+         MESSAGE_MANAGER = lo_message_manager
+         .
+
+*      report message
+     CALL METHOD lo_message_manager->REPORT_ERROR_MESSAGE
+       EXPORTING
+         MESSAGE_TEXT              = 'Keine gültige Eingabe'
+*         PARAMS                    =
+*         MSG_USER_DATA             =
+*         IS_PERMANENT              = ABAP_FALSE
+*         SCOPE_PERMANENT_MSG       = CO_MSG_SCOPE_CONTROLLER
+*         VIEW                      =
+*         SHOW_AS_POPUP             =
+*         CONTROLLER_PERMANENT_MSG  =
+*         MSG_INDEX                 =
+*         CANCEL_NAVIGATION         =
+*         ENABLE_MESSAGE_NAVIGATION =
+*         COMPONENT                 =
+       RECEIVING
+         MESSAGE_ID                = message
+         .
+
+  ENDIF.
+endmethod.

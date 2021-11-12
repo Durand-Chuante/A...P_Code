@@ -1,0 +1,11 @@
+*&---------------------------------------------------------------------*
+*& Include ZZ_1432_SUBS_TOP                         - Modulpool        ZZ_1432_SUBS
+*&---------------------------------------------------------------------*
+PROGRAM ZZ_1432_SUBS.
+
+TABLES SCUSTOM.
+
+DATA: wa TYPE SCUSTOM,
+      ok_code LIKE sy-ucomm,
+      dynnr LIKE sy-dynnr.
+CONTROLS my_tab_strip TYPE TABSTRIP.

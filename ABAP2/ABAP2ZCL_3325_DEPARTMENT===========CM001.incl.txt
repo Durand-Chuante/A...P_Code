@@ -1,0 +1,5 @@
+  method ADD_EMPLOYEE.
+
+    APPEND im_add_employee TO it_employees.
+
+  endmethod.

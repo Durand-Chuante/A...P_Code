@@ -1,0 +1,44 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_1432_FLEDIT_USER_COMMANDI01.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Module  USER_COMMAND_0100  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0100 INPUT.
+  CASE ok_code.
+    WHEN 'SELECT'.
+      CALL FUNCTION 'ENQUEUE_EZ_SPFLI'
+        EXPORTING
+          mode_spfli     = 'S'
+          mandt          = sy-mandt
+          carrid         = spfli-carrid
+          connid         = spfli-connid
+          x_carrid       = ' '
+          x_connid       = ' '
+*         _SCOPE         = '2'
+*         _WAIT          = ' '
+*         _COLLECT       = ' '
+        EXCEPTIONS
+          foreign_lock   = 1
+          system_failure = 2
+          others         = 3.
+      IF sy-subrc <> 0.
+        MESSAGE e005.
+      ENDIF.
+        select single * from spfli into wa_conn where
+                             carrid = spfli-carrid and
+                             connid = spfli-connid.
+
+      IF sy-subrc = 0.
+        MESSAGE s004 WITH spfli-carrid spfli-connid.
+      ELSE.
+        MESSAGE e001.
+      ENDIF.
+
+    WHEN 'BACK'.
+      LEAVE PROGRAM.
+  ENDCASE.
+  CLEAR ok_code.
+ENDMODULE.

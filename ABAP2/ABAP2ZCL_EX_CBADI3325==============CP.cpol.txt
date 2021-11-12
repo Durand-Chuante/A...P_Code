@@ -1,0 +1,25 @@
+class-pool .
+*"* class pool for class ZCL_EX_CBADI3325
+
+*"* local type definitions
+include ZCL_EX_CBADI3325==============ccdef.
+
+*"* class ZCL_EX_CBADI3325 definition
+*"* public declarations
+  include ZCL_EX_CBADI3325==============cu.
+*"* protected declarations
+  include ZCL_EX_CBADI3325==============co.
+*"* private declarations
+  include ZCL_EX_CBADI3325==============ci.
+endclass. "ZCL_EX_CBADI3325 definition
+
+*"* macro definitions
+include ZCL_EX_CBADI3325==============ccmac.
+*"* local class implementation
+include ZCL_EX_CBADI3325==============ccimp.
+
+class ZCL_EX_CBADI3325 implementation.
+*"* method's implementations
+  include methods.
+endclass. "ZCL_EX_CBADI3325 implementation
+

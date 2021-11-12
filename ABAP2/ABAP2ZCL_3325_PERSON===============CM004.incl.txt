@@ -1,0 +1,3 @@
+  method SET_ADRESSE.
+    adresse = im_adresse.
+  endmethod.

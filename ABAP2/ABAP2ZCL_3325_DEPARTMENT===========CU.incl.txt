@@ -1,0 +1,25 @@
+class ZCL_3325_DEPARTMENT definition
+  public
+  create public .
+
+public section.
+
+  methods CONSTRUCTOR
+    importing
+      !IM_DEPARTMENT_NAME type STRING .
+  methods SET_DEPARTMENT_NAME
+    importing
+      !IM_DEPARTMENT_NAME type STRING .
+  methods GET_DEPARTMENT_NAME
+    returning
+      value(RE_DEPARTMENT_NAME) type STRING .
+  methods ADD_EMPLOYEE
+    importing
+      !IM_ADD_EMPLOYEE type ref to ZCL_3325_EMPLOYEE .
+  methods AVG_SALARY
+    returning
+      value(RE_AVG_SALARY) type I .
+  methods GET_AVG_PERCENTAGE
+    returning
+      value(RE_AVG_PERCENTAGE) type I .
+  methods PRINT_DEPARTMENT .

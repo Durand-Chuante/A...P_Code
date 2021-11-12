@@ -1,0 +1,44 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_COMPAGNY_GLOBAL
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_COMPAGNY_GLOBAL.
+
+DATA: r_zcl_3325_department TYPE REF TO zcl_3325_department,
+      r_zcl_3325_fiel_staff TYPE REF TO zcl_3325_field_staff,
+      r_zcl_3325_office_employee TYPE REF TO zcl_3325_office_employee.
+
+CREATE OBJECT r_zcl_3325_department
+  EXPORTING
+    IM_DEPARTMENT_NAME = 'Abteilung 1'.
+
+CREATE OBJECT r_zcl_3325_fiel_staff
+  EXPORTING
+    IM_PERCENTAGE = 10
+    IM_SALES = 3500
+    IM_NAME = 'Durand'
+    IM_BASE_SALARY = 2500
+    IM_DOB = '19600711'
+    IM_ADRESSE = 'Alexenderstr. 13'.
+
+CREATE OBJECT r_zcl_3325_office_employee
+  EXPORTING
+    IM_NAME = 'Ronald'
+    IM_DOB = '19701203'
+    IM_BASE_SALARY = 2300
+    IM_ADRESSE = 'Leopoldstr. 4'
+    IM_OFFICE = 'Büro A23'.
+
+CALL METHOD r_zcl_3325_department->ADD_EMPLOYEE
+  EXPORTING
+    IM_ADD_EMPLOYEE = r_zcl_3325_fiel_staff.
+
+CALL METHOD r_zcl_3325_department->ADD_EMPLOYEE
+  EXPORTING
+    IM_ADD_EMPLOYEE = r_zcl_3325_office_employee.
+
+CALL METHOD r_zcl_3325_department->PRINT_DEPARTMENT( ).
+    .
+
+    .

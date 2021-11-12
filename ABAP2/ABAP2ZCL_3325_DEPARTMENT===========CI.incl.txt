@@ -1,0 +1,5 @@
+private section.
+
+  data DEPARTMENT_NAME type STRING .
+  data:
+    it_employees TYPE TABLE OF REF TO zcl_3325_employee .

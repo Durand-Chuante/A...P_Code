@@ -1,0 +1,38 @@
+method READ_PR_ERGEBNISSE .
+* General Notes
+* =============
+* A common scenario for a supply method is to aquire key
+* informations from the parameter <parent_element> and then
+* to invoke a data provider.
+* A free navigation thru the context, especially to nodes on
+* the same or deeper hierachical level is strongly discouraged,
+* because such a strategy may easily lead to unresolvable
+* situations!!
+
+*  if necessary, get static attributes of parent element
+*  DATA ls_parent_attributes TYPE wd_this->element_pruefungsergebnis.
+*  parent_element->get_static_attributes(
+*    IMPORTING
+*      static_attributes = ls_parent_attributes ).
+
+*
+** data declaration
+  DATA lt_teilnahme_result TYPE wd_this->Elements_teilnahme_result.
+  DATA ls_teilnahme_result LIKE LINE OF lt_teilnahme_result.
+  DATA ls_zz3325_teilnahme TYPE if_componentcontroller=>element_pruefungsergebnis.
+** @TODO compute values
+** e.g. call a data providing FuBa
+
+parent_element->get_static_attributes(
+  IMPORTING
+    static_attributes = ls_zz3325_teilnahme ).
+
+  select * FROM zz3325_teilnahme INTO CORRESPONDING FIELDS OF TABLE lt_teilnahme_result
+  where pruefung_id = ls_zz3325_teilnahme-pruefungsid.
+
+** bind all the elements
+  node->bind_table(
+    new_items            =  lt_teilnahme_result
+    set_initial_elements = abap_true ).
+*
+endmethod.

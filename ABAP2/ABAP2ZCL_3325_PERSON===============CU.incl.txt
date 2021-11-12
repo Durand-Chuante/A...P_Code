@@ -1,0 +1,29 @@
+class ZCL_3325_PERSON definition
+  public
+  create public .
+
+public section.
+
+  methods CONSTRUCTOR
+    importing
+      value(IM_NAME) type STRING
+      value(IM_DOB) type D
+      value(IM_ADRESSE) type STRING .
+  methods GET_NAME
+    returning
+      value(RE_NAME) type STRING .
+  methods SET_NAME
+    importing
+      value(IM_NAME) type STRING .
+  methods GET_DOB
+    returning
+      value(RE_DOB) type D .
+  methods SET_DOB
+    importing
+      value(IM_DOB) type D .
+  methods SET_ADRESSE
+    importing
+      value(IM_ADRESSE) type STRING .
+  methods GET_ADRESSE
+    returning
+      value(RE_ADRESSE) type STRING .

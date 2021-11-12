@@ -1,0 +1,79 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_3325_FCAT_INIT_ALVO01.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*& Module INIT_ALV OUTPUT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+MODULE INIT_ALV OUTPUT.
+ SELECT * FROM scustom as sc INNER JOIN sbook as
+      sb ON sc~id = sb~customid INTO CORRESPONDING FIELDS OF TABLE it_book
+      WHERE agencynum = stravelag-agencynum.
+  IF r_container IS INITIAL.
+    CREATE OBJECT r_container
+    EXPORTING
+    container_name = 'MY_AREA'.
+  ENDIF.
+
+ IF r_alv IS INITIAL.
+  CREATE OBJECT r_alv
+    EXPORTING
+      i_parent = r_container.
+
+    wa-fieldname = 'NAME'.
+    wa-ref_field = 'NAME'.
+    wa-ref_table = 'SCUSTOM'.
+    wa-outputlen = 15.
+    INSERT wa INTO TABLE it_fkat.
+    wa-fieldname = 'CITY'.
+    wa-ref_field = 'CITY'.
+    wa-ref_table = 'SCUSTOM'.
+    wa-outputlen = 15.
+    INSERT wa INTO TABLE it_fkat.
+    wa-fieldname = 'COUNTRY'.
+    wa-ref_field = 'COUNTRY'.
+    wa-ref_table = 'SCUSTOM'.
+    wa-outputlen = 15.
+    INSERT wa INTO TABLE it_fkat.
+SET HANDLER lcl_event_handler=>on_toolbar FOR r_alv.
+
+DATA my_print TYPE lvc_s_prnt.
+my_print-grpchgedit = 'X'.
+
+    CALL METHOD R_ALV->SET_TABLE_FOR_FIRST_DISPLAY
+      EXPORTING
+*        I_BUFFER_ACTIVE               =
+*        I_BYPASSING_BUFFER            =
+*        I_CONSISTENCY_CHECK           =
+        I_STRUCTURE_NAME              = 'SBOOK'
+*        IS_VARIANT                    =
+*        I_SAVE                        =
+*        I_DEFAULT                     = 'X'
+*        IS_LAYOUT                     =
+         IS_PRINT                      = my_print
+*        IT_SPECIAL_GROUPS             =
+*        IT_TOOLBAR_EXCLUDING          =
+*        IT_HYPERLINK                  =
+*        IT_ALV_GRAPHICS               =
+*        IT_EXCEPT_QINFO               =
+*        IR_SALV_ADAPTER               =
+      CHANGING
+        IT_OUTTAB                     = it_book
+        IT_FIELDCATALOG               = it_fkat
+*        IT_SORT                       =
+*        IT_FILTER                     =
+*      EXCEPTIONS
+*        INVALID_PARAMETER_COMBINATION = 1
+*        PROGRAM_ERROR                 = 2
+*        TOO_MANY_LINES                = 3
+*        others                        = 4
+            .
+    ELSE.
+      r_alv->refresh_table_display( ).
+    ENDIF.
+SET HANDLER lcl_event_handler=>on_double_click FOR r_alv.
+SET HANDLER lcl_event_handler=>on_user_command FOR r_alv.
+SET HANDLER lcl_event_handler=>on_top_of_list FOR r_alv.
+
+ENDMODULE.

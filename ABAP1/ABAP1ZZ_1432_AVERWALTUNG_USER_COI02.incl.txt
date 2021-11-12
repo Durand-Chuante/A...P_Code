@@ -1,0 +1,29 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_1432_AVERWALTUNG_USER_COI02.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Module  USER_COMMAND_0400  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0400 INPUT.
+
+CASE ok_code.
+
+    WHEN 'SAVE'.
+        IF ZZ1432_ANGEBOT <> wa_angebot.
+           MODIFY ZZ1432_ANGEBOT FROM ZZ1432_ANGEBOT.
+           IF sy-subrc = 0.
+              MESSAGE s017 WITH ZZ1432_ANGEBOT-ANGEBOTID.
+           ENDIF.
+        ENDIF.
+
+    WHEN 'BACK'.
+      LEAVE TO SCREEN 300.
+    WHEN 'LEAVE'.
+      LEAVE PROGRAM.
+  ENDCASE.
+
+  CLEAR ok_code.
+
+ENDMODULE.

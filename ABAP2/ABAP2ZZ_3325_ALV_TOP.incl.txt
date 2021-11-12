@@ -1,0 +1,10 @@
+*&---------------------------------------------------------------------*
+*& Include ZZ_3325_ALV_TOP                          - Modulpool        ZZ_3325_ALV
+*&---------------------------------------------------------------------*
+PROGRAM ZZ_3325_ALV.
+
+DATA itab TYPE STANDARD TABLE OF SCARR.
+
+DATA: ok_code LIKE sy-ucomm,
+      r_container TYPE REF TO cl_gui_custom_container,
+      r_alv TYPE REF TO cl_gui_alv_grid.

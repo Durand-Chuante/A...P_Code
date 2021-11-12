@@ -1,0 +1,69 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_STUDENTEN_GLOBAL
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_STUDENTEN_GLOBAL.
+
+PARAMETERS pa_fach TYPE ZZ_1432_ST_STUDIENGANG.
+
+DATA my_student TYPE ZZ1432_STUD.
+
+DATA: itab TYPE ZZ_1432_STUD_TAB.
+
+my_student-NAME = 'Müller'.
+my_student-VORNAME = 'Bernd'.
+my_student-GESCHLECHT  = 'M'.
+my_student-STUDIENGANG = pa_fach.
+my_student-ABSCHLUSS = 'Bachelor'.
+my_student-SEMESTER = 3.
+my_student-MATRIKEL = '12345'.
+INSERT my_student INTO TABLE itab.
+
+my_student-NAME = 'Wolfgang'.
+my_student-VORNAME = 'Nuemann'.
+my_student-GESCHLECHT  = 'M'.
+my_student-STUDIENGANG = pa_fach.
+my_student-ABSCHLUSS = 'Master'.
+my_student-SEMESTER = 4.
+my_student-MATRIKEL = '12346'.
+INSERT my_student INTO TABLE itab.
+
+my_student-NAME = 'Maxwell'.
+my_student-VORNAME = 'Donald'.
+my_student-GESCHLECHT  = 'M'.
+my_student-STUDIENGANG = pa_fach.
+my_student-ABSCHLUSS = 'Bachelor'.
+my_student-SEMESTER = 4.
+my_student-MATRIKEL = '12347'.
+INSERT my_student INTO TABLE itab.
+
+my_student-NAME = 'Chuante'.
+my_student-VORNAME = 'Durand'.
+my_student-GESCHLECHT  = 'W'.
+my_student-STUDIENGANG = pa_fach.
+my_student-ABSCHLUSS = 'Bachelor'.
+my_student-SEMESTER = 3.
+my_student-MATRIKEL = '12348'.
+INSERT my_student INTO TABLE itab.
+
+my_student-NAME = 'Adam'.
+my_student-VORNAME = 'Raik'.
+my_student-GESCHLECHT  = 'M'.
+my_student-STUDIENGANG = 'Energie'.
+my_student-ABSCHLUSS = pa_fach.
+my_student-SEMESTER = 4.
+my_student-MATRIKEL = '12349'.
+INSERT my_student INTO TABLE itab.
+
+LOOP AT itab INTO my_student.
+
+  WRITE: / 'Nachname: ', my_student-NAME,
+         / 'Vorname: ', my_student-VORNAME,
+         / 'Geschlecht: ', my_student-GESCHLECHT,
+         / 'Studiengang: ', my_student-STUDIENGANG,
+         / 'Abschluss: ', my_student-ABSCHLUSS,
+         / 'Semester: ', my_student-SEMESTER,
+         / 'Matrikelnummer: ', my_student-MATRIKEL, / .
+
+ENDLOOP.

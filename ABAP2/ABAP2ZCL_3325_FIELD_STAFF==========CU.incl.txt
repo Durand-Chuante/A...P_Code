@@ -1,0 +1,32 @@
+class ZCL_3325_FIELD_STAFF definition
+  public
+  inheriting from ZCL_3325_EMPLOYEE
+  create public .
+
+public section.
+
+  methods CONSTRUCTOR
+    importing
+      !IM_PERCENTAGE type I
+      !IM_SALES type I
+      !IM_NAME type STRING
+      !IM_BASE_SALARY type I
+      !IM_DOB type D
+      !IM_ADRESSE type STRING .
+  methods SET_PERCENTAGE
+    importing
+      !IM_PERCENTAGE type P .
+  methods GET_PERCENTAGE
+    returning
+      value(RE_PERCENTAGE) type I .
+  methods SET_SALES
+    importing
+      !IM_SALES type P .
+  methods GET_SALES
+    returning
+      value(RE_SALES) type I .
+
+  methods GET_SALARY
+    redefinition .
+  methods PRINT
+    redefinition .

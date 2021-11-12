@@ -1,0 +1,4 @@
+method ONACTIONAKTION_ZUR_VIEW1 .
+  wd_this->fire_to_view1_plg(
+  ).
+endmethod.

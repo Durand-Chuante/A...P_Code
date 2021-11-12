@@ -1,0 +1,4 @@
+interface-pool.
+*"* class pool for interface ZIF_EX_CBADI3325
+
+  include ZIF_EX_CBADI3325==============iu.

@@ -1,0 +1,6 @@
+  method CLASS_CONSTRUCTOR.
+    CREATE OBJECT r_instance.
+*    DATA itab TYPE TABLE OF SPFLI.
+    SELECT  * FROM SPFLI INTO TABLE connection_list.
+*    INSERT itab INTO TABLE connection_list.
+  endmethod.

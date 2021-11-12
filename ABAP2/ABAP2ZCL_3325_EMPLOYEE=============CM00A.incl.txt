@@ -1,0 +1,3 @@
+  method PRINT.
+     WRITE: / 'Name: ', get_name( ), 30 'Adresse: ', get_adresse( ), 70 'Gehalt: ', get_salary( ), '€', 100 'Geburtsdatum: ', get_dob( ) DD/MM/YYYY.
+  endmethod.

@@ -1,0 +1,11 @@
+ENHANCEMENT 1  .
+  TYPES carrid type s_carrid.
+ENDENHANCEMENT.
+ENHANCEMENT 2  .
+WRITE:/ wa_carrier-carrid.
+ENDENHANCEMENT.
+ENHANCEMENT 3  .
+ DATA number TYPE i.
+ SELECT COUNT( * ) FROM SPFLI INTO number WHERE carrid = wa_carrier-carrid.
+   WRITE:/ number, 'Verbindungen im Angebeot'.
+ENDENHANCEMENT.

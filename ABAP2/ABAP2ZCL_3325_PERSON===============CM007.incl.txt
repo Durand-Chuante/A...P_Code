@@ -1,0 +1,6 @@
+  method CONSTRUCTOR.
+*    super->constructor( ).
+    name = im_name.
+    dob = im_dob.
+    adresse = im_adresse.
+  endmethod.

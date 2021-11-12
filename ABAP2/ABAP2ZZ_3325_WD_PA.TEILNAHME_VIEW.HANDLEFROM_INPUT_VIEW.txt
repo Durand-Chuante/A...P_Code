@@ -1,0 +1,2 @@
+method HANDLEFROM_INPUT_VIEW .
+endmethod.

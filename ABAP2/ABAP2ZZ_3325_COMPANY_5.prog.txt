@@ -1,0 +1,79 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_COMPANY_5
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_COMPANY_5.
+
+Include ZZ_3325_COMPANY_5_CLASSES.
+
+START-OF-SELECTION.
+
+DATA: r_department TYPE REF TO lcl_department,
+      r_office_employee TYPE REF TO lcl_office_employee,
+      r_field_staff TYPE REF TO lcl_field_staff.
+
+CREATE OBJECT r_department EXPORTING im_department_name = 'Abteilung 1'.
+
+SET HANDLER r_department->on_employee_created FOR ALL INSTANCES.
+
+CREATE OBJECT r_office_employee EXPORTING
+    im_name = 'Meier'
+    im_firstname = 'Hans'
+    im_base_salary = 2000
+    im_dob = '19701012'
+    im_office = 'Raum A12'.
+r_office_employee->set_adress( EXPORTING im_adress = 'Hauptstr. 19 ' ).
+
+CREATE OBJECT r_office_employee EXPORTING
+    im_name = 'Gernd'
+    im_firstname = 'Schmitt'
+    im_base_salary = 3000
+    im_dob = '19601012'
+    im_office = 'Raum A11'.
+r_office_employee->set_adress( EXPORTING im_adress = 'Wiesenweg. 1 ' ).
+
+CREATE OBJECT r_field_staff EXPORTING
+    im_name = 'Andreas'
+    im_firstname = 'Gora'
+    im_base_salary = 3000
+    im_dob = '19701012'
+    im_sales = 6000
+    im_percentage = 10.
+r_field_staff->set_adress( EXPORTING im_adress = 'Kaiser str. 19 ' ).
+
+
+CREATE OBJECT r_field_staff EXPORTING
+    im_name = 'Meri'
+    im_firstname = 'Simon'
+    im_base_salary = 3500
+    im_dob = '19601012'
+    im_sales = 6500
+    im_percentage = 20.
+r_field_staff->set_adress( EXPORTING im_adress = 'Aalstrasse. 1 ' ).
+
+CREATE OBJECT r_field_staff EXPORTING
+    im_name = 'Durand'
+    im_firstname = 'Chuante'
+    im_base_salary = 7500
+    im_dob = '19911012'
+    im_sales = 6500
+    im_percentage = 20.
+r_field_staff->set_adress( EXPORTING im_adress = 'Friedrich_str. 1 ' ).
+
+r_department->print_department( ).
+
+SET HANDLER r_department->on_employee_created FOR ALL INSTANCES ACTIVATION ' '.
+ULINE / .
+WRITE: /, 'Ausgabe nach der Deregistrierung und Erzeugung eines weiteres Objekts.', /.
+
+CREATE OBJECT r_field_staff EXPORTING
+    im_name = 'Leonard'
+    im_firstname = 'Keller'
+    im_base_salary = 2000
+    im_dob = '19911012'
+    im_sales = 6500
+    im_percentage = 20.
+r_field_staff->set_adress( EXPORTING im_adress = 'Franz_str. 11 ' ).
+
+r_department->print_department( ).

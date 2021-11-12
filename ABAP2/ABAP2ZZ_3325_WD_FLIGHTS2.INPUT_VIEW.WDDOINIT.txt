@@ -1,0 +1,38 @@
+method WDDOINIT .
+    DATA lo_nd_destination_from TYPE REF TO if_wd_context_node.
+
+    DATA lo_el_destination_from TYPE REF TO if_wd_context_element.
+    DATA ls_destination_from TYPE wd_this->Element_destination_from.
+    DATA lv_city TYPE wd_this->Element_destination_from-city.
+
+*   navigate from <CONTEXT> to <DESTINATION_FROM> via lead selection
+    lo_nd_destination_from = wd_context->get_child_node( name = wd_this->wdctx_destination_from ).
+
+*   @TODO handle non existant child
+*   IF lo_nd_destination_from IS INITIAL.
+*   ENDIF.
+
+*   get element via lead selection
+    lo_el_destination_from = lo_nd_destination_from->get_element( ).
+
+*   @TODO handle not set lead selection
+    IF lo_el_destination_from IS INITIAL.
+    ENDIF.
+
+*   @TODO fill attribute
+*   lv_city = 1.
+
+*   set single attribute
+    TYPES: BEGIN OF ty_itab,
+      stadt TYPE c LENGTH 30,
+      anzahl TYPE i,
+      END OF ty_itab.
+DATA: itab TYPE STANDARD TABLE OF ty_itab.
+
+     SELECT cityto, COUNT( * ) AS anzahl FROM SPFLI GROUP BY cityto INTO TABLE @itab.
+     SORT itab BY anzahl DESCENDING.
+     READ TABLE itab INDEX 1 INTO lv_city.
+    lo_el_destination_from->set_attribute(
+      name =  `CITY`
+      value = lv_city ).
+endmethod.

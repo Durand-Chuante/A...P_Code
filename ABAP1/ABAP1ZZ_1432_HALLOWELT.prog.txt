@@ -1,0 +1,89 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_HALLOWELT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zz_1432_hallowelt.
+DATA: gv_zahl1 TYPE i,
+      gv_zahl2 TYPE i VALUE 4.
+gv_zahl1 = 21.
+gv_zahl2 = 0.
+WRITE gv_zahl2.
+
+ULINE.
+
+WRITE 'Hallo Welt'.
+
+NEW-LINE.
+WRITE 'noch eine Zeile'.
+WRITE sym_filled_diamond AS SYMBOL .
+ULINE.
+WRITE 'Übung zur Versionsverwahltung'.
+WRITE sym_checkbox AS SYMBOL .
+ULINE.
+WRITE 'Formatierung der Uhrzeit'.
+NEW-LINE.
+DATA gv_zeit1 TYPE t.
+gv_zeit1 = '123456'.
+WRITE gv_zeit1.
+WRITE (8) gv_zeit1.
+write (8) sy-timlo.
+
+ULINE.
+WRITE 'Formatierung des heuzigen Datum'.
+NEW-LINE.
+WRITE sy-datum DDMMYY.
+WRITE sy-datum DD/MM/YYYY.
+ULINE.
+
+WRITE: / 'AUSRIVHTUNG'.
+ WRITE: /(50) 'Linksbündig' LEFT-JUSTIFIED,
+        /(50) 'Rechtsbündig' RIGHT-JUSTIFIED,
+        /(50) 'Zentriert' CENTERED.
+ ULINE.
+
+WRITE:/ 'FORMATIERUNG NUMERISCHER ANGABEN:', /.
+ DATA number TYPE f.
+ number = '1.23456'.
+ write (6) number EXPONENT 0.
+ WRITE /(6) number.
+
+ ULINE.
+ DATA money TYPE i VALUE 12345.
+ WRITE money CURRENCY 'EUR'.
+
+ ULINE.
+ ULINE.
+ DATA square TYPE i.
+ START-OF-SELECTION.
+ DO 5 TIMES.
+   square = sy-index * sy-index.
+   HIDE square.
+ ENDDO.
+
+ AT LINE-SELECTION.
+   WRITE: / 'Quadrat ist ', square.
+
+DATA dob TYPE d VALUE '19911214'.
+
+DATA age TYPE i.
+
+age = ( sy-datum - dob ) / 360.
+
+write: / age.
+"ULINE.
+ "ULINE.
+
+
+ "DATA sum TYPE i.
+
+ "FORMAT COLOR COL_NEGATIVE.
+ "DO 10 TIMES.
+  " WRITE / sy-index.
+  " sum = sum + sy-index.
+  " WRITE sum COLOR COL_TOTAL.
+" ENDDO.
+"ULINE.
+"WRITE sum UNDER sum COLOR COL_GROUP HOTSPOT on.
+
+"WRITE icon_checked as ICON.

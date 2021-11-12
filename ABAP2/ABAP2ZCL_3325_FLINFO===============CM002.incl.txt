@@ -1,0 +1,11 @@
+  method GET_CONNECTIONS.
+    DATA: wa TYPE spfli.
+
+    READ TABLE ZCL_3325_SINGLETON=>connection_list INTO wa WITH TABLE KEY
+               carrid = im_carrid connid = im_connid.
+    re_connection = wa.
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE ZCX_3325_EXCEPTION EXPORTING
+      carrid = im_carrid connid = im_connid textid = ZCX_3325_EXCEPTION=>NO_CONNECTION.
+    ENDIF.
+  endmethod.

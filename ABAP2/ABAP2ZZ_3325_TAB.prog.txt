@@ -1,0 +1,31 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_TAB
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_TAB.
+
+DATA: ref_struct TYPE REF TO data.
+
+FIELD-SYMBOLS: <fs_struct> TYPE ANY,
+               <fs_comp> TYPE ANY.
+
+PARAMETERS pa_tab TYPE c LENGTH 20.
+
+START-OF-SELECTION.
+CREATE DATA ref_struct TYPE (pa_tab).
+ASSIGN ref_struct->* TO <fs_struct>.
+
+SELECT * from (pa_tab) INTO <fs_struct> UP TO 50 ROWS.
+  DO.
+    ASSIGN COMPONENT sy-index OF STRUCTURE <fs_struct> TO <fs_comp>.
+    IF sy-subrc <> 0.
+      NEW-LINE.
+      EXIT.
+    ENDIF.
+    WRITE <fs_comp>.
+  ENDDO.
+  ENDSELECT.
+  IF sy-subrc <> 0.
+    MESSAGE 'Leere Tabelle!' TYPE 'E'.
+  ENDIF.

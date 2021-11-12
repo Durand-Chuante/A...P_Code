@@ -1,0 +1,69 @@
+METHOD EXECUTE_BAPI_FLIGHT_GETLIST .
+ 
+* declarations for context navigation 
+  DATA lo_bapi_flight_getlist TYPE REF TO if_wd_context_node.
+  DATA lo_changing TYPE REF TO if_wd_context_node.
+  DATA lo_flight_list TYPE REF TO if_wd_context_node.
+  DATA lo_importing TYPE REF TO if_wd_context_node.
+  DATA lo_destination_from TYPE REF TO if_wd_context_node.
+  DATA lo_destination_to TYPE REF TO if_wd_context_node.
+  DATA lo_element TYPE REF TO if_wd_context_element.
+  DATA lt_elements TYPE wdr_context_element_set.
+ 
+* declarations for parameters 
+  DATA ls_c_destination_from TYPE if_componentcontroller=>element_destination_from.
+ 
+  DATA ls_c_destination_to TYPE if_componentcontroller=>element_destination_to.
+ 
+  DATA lt_c_flight_list TYPE if_componentcontroller=>elements_flight_list.
+  DATA ls_c_flight_list LIKE LINE OF lt_c_flight_list.
+  DATA lt_c_flight_list_cp TYPE if_componentcontroller=>elements_flight_list.
+ 
+ 
+* get all involved child nodes
+  lo_bapi_flight_getlist = wd_context->get_child_node( wd_this->wdctx_bapi_flight_getlist ).
+  lo_changing = lo_bapi_flight_getlist->get_child_node( wd_this->wdctx_changing ).
+  lo_flight_list = lo_changing->get_child_node( wd_this->wdctx_flight_list ).
+  lo_importing = lo_bapi_flight_getlist->get_child_node( wd_this->wdctx_importing ).
+  lo_destination_from = lo_importing->get_child_node( wd_this->wdctx_destination_from ).
+  lo_destination_to = lo_importing->get_child_node( wd_this->wdctx_destination_to ).
+ 
+* get input from context
+  lo_element = lo_destination_from->get_element( ).      
+  lo_element->get_static_attributes( 
+    IMPORTING static_attributes = ls_c_destination_from ).
+  lo_element = lo_destination_to->get_element( ).      
+  lo_element->get_static_attributes( 
+    IMPORTING static_attributes = ls_c_destination_to ).
+  lt_elements = lo_flight_list->get_elements( ).      
+  LOOP AT lt_elements[] INTO lo_element.
+    lo_element->get_static_attributes( IMPORTING static_attributes = ls_c_flight_list ).
+    INSERT ls_c_flight_list INTO TABLE lt_c_flight_list[].
+  ENDLOOP.
+ 
+  lt_c_flight_list_cp = lt_c_flight_list[].
+ 
+ 
+* the invocation - errors are always fatal !!!
+  CALL FUNCTION 'BAPI_FLIGHT_GETLIST'
+    EXPORTING
+"      airline =                         wd_this->airline
+       destination_from =                ls_c_destination_from
+       destination_to =                  ls_c_destination_to
+"      max_rows =                        wd_this->max_rows
+    TABLES
+"      date_range =
+"      extension_in =
+       flight_list =                     lt_c_flight_list
+"      extension_out =
+"      return =
+  .
+ 
+* store output to context
+  IF lt_c_flight_list[] NE lt_c_flight_list_cp[].
+    lo_flight_list->bind_table( lt_c_flight_list[] ).
+  ENDIF.
+  CLEAR lt_c_flight_list_cp[].
+  CLEAR lt_c_flight_list[].
+ 
+ENDMETHOD.

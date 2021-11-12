@@ -1,0 +1,51 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_3325_COMPANY_4
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_3325_COMPANY_4.
+
+INCLUDE ZZ_3325_COMPANY_4_CLASSES.
+
+START-OF-SELECTION.
+
+DATA: r_building TYPE REF TO lcl_building,
+      r_office_employee TYPE REF TO lcl_office_employee,
+      r_conference_location TYPE REF TO lcl_conference_location,
+      r_department TYPE REF TO lcl_department.
+
+CREATE OBJECT r_department EXPORTING im_department_name = 'Abteilung 1'.
+
+CREATE OBJECT r_building EXPORTING
+  im_name = 'Büroturm'
+  im_available_small_rooms = 3
+  im_available_medium_rooms = 3
+  im_available_large_rooms = 3.
+
+CREATE OBJECT r_office_employee EXPORTING
+    im_name = 'Meier'
+    im_firstname = 'Hans'
+    im_base_salary = 1500
+    im_dob = '19701012'
+    im_office = 'Raum A12'.
+r_office_employee->set_adress( EXPORTING im_adress = 'Hauptstr. 19 ' ).
+r_department->add_employee( r_office_employee ).
+r_building->add_requirement( r_office_employee ).
+
+CREATE OBJECT r_office_employee EXPORTING
+    im_name = 'Gernd'
+    im_firstname = 'Schmitt'
+    im_base_salary = 2000
+    im_dob = '19601012'
+    im_office = 'Raum A11'.
+r_office_employee->set_adress( EXPORTING im_adress = 'Wiesenweg. 1 ' ).
+r_department->add_employee( r_office_employee ).
+r_building->add_requirement( r_office_employee ).
+
+CREATE OBJECT r_conference_location EXPORTING
+  im_name = 'Teambeschprechunraum'.
+WRITE: / 'Für das Gebäude ', r_building->get_name( ), ' wurde folgende Raumbedarfe registriert'.
+ULINE.
+r_department->print_department( ).
+r_conference_location->lif_room_requirement~print_requirement( ).
+ r_building->print_utilization( ).

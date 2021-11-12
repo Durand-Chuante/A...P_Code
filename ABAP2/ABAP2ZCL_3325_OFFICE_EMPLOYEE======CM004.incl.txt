@@ -1,0 +1,4 @@
+  method PRINT.
+    CALL METHOD SUPER->PRINT.
+    WRITE: ' Büro: ', office, /.
+  endmethod.

@@ -1,0 +1,55 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_OBJECTS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_OBJECTS.
+*&---------------------------------------------------------------------*
+*& Class FAHRZEUG
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+INCLUDE ZZ_1432_CLASS_INCL.
+
+DATA: meinfahrzeug TYPE REF TO fahrzeug,
+      meinwasserfahrzeug TYPE REF TO wasserfahrzeug,
+      meinlandfahrzeug TYPE REF TO landfahrzeug,
+      fahrzeuge TYPE TABLE OF REF TO fahrzeug.
+
+START-OF-SELECTION.
+
+CREATE OBJECT meinlandfahrzeug.
+meinlandfahrzeug->attributesetzen( EXPORTING im_name = 'Opel astra' im_sitzplaetze = 5 im_hoechstgeschwindigkeit = 150 ).
+meinlandfahrzeug->set_reader( EXPORTING im_reader = 4 ).
+APPEND meinlandfahrzeug TO fahrzeuge.
+
+CREATE OBJECT meinlandfahrzeug.
+meinlandfahrzeug->attributesetzen( EXPORTING im_name = 'Trabant' im_sitzplaetze = 4 im_hoechstgeschwindigkeit = 120 ).
+meinlandfahrzeug->set_reader( EXPORTING im_reader = 4 ).
+APPEND meinlandfahrzeug TO fahrzeuge.
+
+CREATE OBJECT meinlandfahrzeug.
+meinlandfahrzeug->attributesetzen( EXPORTING im_name = 'Mercedes vito' im_sitzplaetze = 6 im_hoechstgeschwindigkeit = 200 ).
+meinlandfahrzeug->set_reader( EXPORTING im_reader = 4 ).
+APPEND meinlandfahrzeug TO fahrzeuge.
+
+CREATE OBJECT meinwasserfahrzeug.
+meinwasserfahrzeug->attributesetzen( EXPORTING im_name = 'Jetski' im_sitzplaetze = 2 im_hoechstgeschwindigkeit = 70 ).
+meinwasserfahrzeug->set_tiefgang( EXPORTING im_tiefgang = 30 ).
+APPEND meinwasserfahrzeug TO fahrzeuge.
+
+CREATE OBJECT meinwasserfahrzeug.
+meinwasserfahrzeug->attributesetzen( EXPORTING im_name = 'Ruderboot' im_sitzplaetze = 4 im_hoechstgeschwindigkeit = 5 ).
+meinwasserfahrzeug->set_tiefgang( EXPORTING im_tiefgang = 1 ).
+APPEND meinwasserfahrzeug TO fahrzeuge.
+
+CREATE OBJECT meinfahrzeug TYPE wasserfahrzeug.
+meinfahrzeug->attributesetzen( EXPORTING im_name = 'Sunseeker' im_sitzplaetze = 10 im_hoechstgeschwindigkeit = 230 ).
+meinwasserfahrzeug ?= meinfahrzeug.
+meinwasserfahrzeug->set_tiefgang( 1 ).
+meinfahrzeug->ausgeben( ).
+
+LOOP AT fahrzeuge INTO meinfahrzeug.
+  meinfahrzeug->ausgeben( ).
+  WRITE: /.
+ENDLOOP.

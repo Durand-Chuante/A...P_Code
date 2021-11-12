@@ -1,0 +1,57 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_3325_ALV_INIT_ALVO01.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*& Module INIT_ALV OUTPUT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+MODULE INIT_ALV OUTPUT.
+  CREATE OBJECT r_container
+    EXPORTING
+      container_name = 'MY_CUSTOM_CONTROL'.
+
+*  IF r_container IS INITIAL.
+  CREATE OBJECT r_alv
+    EXPORTING
+      i_parent = r_container.
+*  ENDIF.
+
+  SELECT * FROM SCARR INTO TABLE itab.
+
+CALL METHOD R_ALV->SET_TABLE_FOR_FIRST_DISPLAY
+  EXPORTING
+*    I_BUFFER_ACTIVE               =
+*    I_BYPASSING_BUFFER            =
+*    I_CONSISTENCY_CHECK           =
+    I_STRUCTURE_NAME              = 'SCARR'
+*    IS_VARIANT                    =
+*    I_SAVE                        =
+*    I_DEFAULT                     = 'X'
+*    IS_LAYOUT                     =
+*    IS_PRINT                      =
+*    IT_SPECIAL_GROUPS             =
+*    IT_TOOLBAR_EXCLUDING          =
+*    IT_HYPERLINK                  =
+*    IT_ALV_GRAPHICS               =
+*    IT_EXCEPT_QINFO               =
+*    IR_SALV_ADAPTER               =
+  CHANGING
+    IT_OUTTAB                     = itab
+*    IT_FIELDCATALOG               =
+*    IT_SORT                       =
+*    IT_FILTER                     =
+*  EXCEPTIONS
+*    INVALID_PARAMETER_COMBINATION = 1
+*    PROGRAM_ERROR                 = 2
+*    TOO_MANY_LINES                = 3
+*    others                        = 4
+        .
+IF SY-SUBRC <> 0.
+* Implement suitable error handling here
+ENDIF.
+
+
+* SET PF-STATUS 'xxxxxxxx'.
+* SET TITLEBAR 'xxx'.
+ENDMODULE.

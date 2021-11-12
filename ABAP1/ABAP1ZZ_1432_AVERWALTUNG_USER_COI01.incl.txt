@@ -1,0 +1,48 @@
+*----------------------------------------------------------------------*
+***INCLUDE ZZ_1432_AVERWALTUNG_USER_COI01.
+*----------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Module  USER_COMMAND_0300  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0300 INPUT.
+
+  CASE ok_code.
+    WHEN 'SELECT'.
+      SELECT SINGLE * FROM ZZ1432_ANGEBOT INTO wa_angebot
+               WHERE angebotid = zz1432_angebot-angebotid.
+      IF sy-subrc = 0.
+        MESSAGE s011 WITH ZZ1432_ANGEBOT-ANGEBOTID.
+      ELSE.
+        MESSAGE e012.
+      ENDIF.
+    WHEN 'INSERT'.
+        INSERT INTO ZZ1432_ANGEBOT VALUES ZZ1432_ANGEBOT.
+      IF sy-subrc = 0.
+        MESSAGE s013 WITH ZZ1432_ANGEBOT-ANGEBOTID.
+        LEAVE to SCREEN 300.
+      ELSE.
+        MESSAGE e014.
+      ENDIF.
+    WHEN 'DELETE'.
+        DELETE ZZ1432_ANGEBOT FROM ZZ1432_ANGEBOT.
+      IF sy-subrc = 0.
+        MESSAGE s015 WITH ZZ1432_ANGEBOT-ANGEBOTID.
+        LEAVE to SCREEN 300.
+      ELSE.
+        MESSAGE e016 WITH ZZ1432_ANGEBOT-ANGEBOTID.
+      ENDIF.
+    WHEN 'MODIFY'.
+      SELECT SINGLE * FROM ZZ1432_ANGEBOT INTO wa_angebot
+               WHERE angebotid = zz1432_angebot-angebotid.
+        IF sy-subrc <> 0.
+          MESSAGE e018.
+        ENDIF.
+    WHEN 'BACK'.
+      LEAVE PROGRAM.
+  ENDCASE.
+
+  CLEAR ok_code.
+
+ENDMODULE.

@@ -1,0 +1,14 @@
+  method AVG_SALARY.
+
+    DATA: n_employee TYPE i, "Anzahl Mitarbeiter in der Abteilung.
+          sum_salary TYPE i VALUE 0. "Gehaltsumme alle Mitarbeiter in der Abteilung.
+     DATA r_employee TYPE REF TO zcl_3325_employee.
+    LOOP AT it_employees INTO r_employee.
+       sum_salary = sum_salary + r_employee->get_salary( ).
+       WRITE: / sum_salary.
+    ENDLOOP.
+    n_employee = lines( it_employees ).
+      re_avg_salary = sum_salary / n_employee.
+    WRITE: / 'Durchschnittsgehalt = ', re_avg_salary, '€'.
+
+  endmethod.

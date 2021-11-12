@@ -1,0 +1,2 @@
+method HANDLEFROM_VIEW2 .
+endmethod.

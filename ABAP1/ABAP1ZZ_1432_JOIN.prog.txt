@@ -1,0 +1,23 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_JOIN
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_JOIN.
+
+TYPES: BEGIN OF str_join,
+  carrid LIKE spfli-carrid,
+  connid LIKE spfli-connid,
+  cityfrom LIKE spfli-cityfrom,
+  carrname LIKE scarr-carrname,
+END OF str_join.
+
+DATA wa TYPE str_join.
+
+select spfli~carrid connid cityfrom carrname
+  from spfli INNER JOIN scarr on spfli~carrid = scarr~carrid
+  into wa.
+
+WRITE: / wa.
+
+ENDSELECT.

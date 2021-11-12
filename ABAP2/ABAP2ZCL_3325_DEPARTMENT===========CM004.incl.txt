@@ -1,0 +1,20 @@
+  method GET_AVG_PERCENTAGE.
+
+    DATA: n_field_staff TYPE i VALUE 0, "Anzahl der Außendienstmitarbeiter.
+          sum_provisionsatz TYPE i VALUE 0. "summe Provision alle Außenmitarbeiter.
+     DATA r_employee TYPE REF TO zcl_3325_employee.
+     DATA r_field_staff TYPE REF TO zcl_3325_field_staff.
+     LOOP AT it_employees INTO r_employee.
+       TRY.
+*        ich schreibe die Referenz r_employee in die Referenz r_field_staff.
+*         Anweisungen, die nach der Zuweisung ?= stehen nur für r_field_staff ausgefürt werden.
+         r_field_staff ?= r_employee.
+         n_field_staff = n_field_staff + 1.
+        sum_provisionsatz = sum_provisionsatz + r_field_staff->get_percentage( ).
+        CATCH cx_sy_move_cast_error.
+       ENDTRY.
+    ENDLOOP.
+      re_avg_percentage = sum_provisionsatz / n_field_staff.
+    WRITE: / 'Durchschnittlicher provisionssatz = ', re_avg_percentage.
+
+  endmethod.

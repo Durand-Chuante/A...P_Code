@@ -1,0 +1,75 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_CARS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zz_1432_cars.
+
+TYPES: BEGIN OF str_car,
+         herstellername      TYPE c LENGTH 20,
+         typbezeichnung      TYPE c LENGTH 20,
+         leistung            TYPE i,
+         baujahr             TYPE n LENGTH 4,
+         fahrgestellnummer   TYPE n LENGTH 10,
+         farbe               TYPE c LENGTH 10,
+         getriebe            TYPE string,
+         max_geschwindigkeit TYPE i,
+       END OF str_car.
+DATA: itab   TYPE STANDARD TABLE OF str_car WITH KEY fahrgestellnummer,
+      my_car TYPE str_car.
+
+my_car-herstellername = 'Toyota'.
+my_car-typbezeichnung = 'Avensis'.
+my_car-leistung = 170.
+my_car-baujahr = '2010'.
+my_car-fahrgestellnummer = '12345'.
+my_car-farbe = 'schwarz'.
+my_car-getriebe = 'Automatik'.
+my_car-max_geschwindigkeit = 220.
+
+INSERT my_car INTO TABLE itab.
+
+my_car-herstellername = 'Volkswagen'.
+my_car-typbezeichnung = 'Golf'.
+my_car-leistung = 150.
+my_car-baujahr = '2009'.
+my_car-fahrgestellnummer = '12346'.
+my_car-farbe = 'Weiss'.
+my_car-getriebe = 'Automatik'.
+my_car-max_geschwindigkeit = 180.
+
+INSERT my_car INTO TABLE itab.
+
+my_car-herstellername = 'Mercedes'.
+my_car-typbezeichnung = 'A8'.
+my_car-leistung = 240.
+my_car-baujahr = '2015'.
+my_car-fahrgestellnummer = '12347'.
+my_car-farbe = 'Grau'.
+my_car-getriebe = 'Automatik'.
+my_car-max_geschwindigkeit = 240.
+
+INSERT my_car INTO TABLE itab.
+
+my_car-herstellername = 'Hyndai'.
+my_car-typbezeichnung = 'Tucson'.
+my_car-leistung = 180.
+my_car-baujahr = '2019'.
+my_car-fahrgestellnummer = '12348'.
+my_car-farbe = 'schwarz'.
+my_car-getriebe = 'Schaltgetriebe'.
+my_car-max_geschwindigkeit = 240.
+
+INSERT my_car INTO TABLE itab.
+
+LOOP AT itab INTO my_car.
+
+  WRITE: / 'Hersteller: ', my_car-herstellername,
+         / 'Typbezeichnung: ', my_car-typbezeichnung,
+         / 'Leistung: ', my_car-leistung,
+         / 'Baujahr: ', my_car-baujahr,
+         / 'Fahrgestellnummer: ', my_car-fahrgestellnummer,
+         / 'Farbe: ', my_car-farbe,
+         / 'Getriebe: ', my_car-getriebe,
+         / 'Max Geschwindigkeit: ', my_car-max_geschwindigkeit, / .
+ENDLOOP.

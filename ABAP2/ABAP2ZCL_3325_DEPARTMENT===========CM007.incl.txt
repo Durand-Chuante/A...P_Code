@@ -1,0 +1,5 @@
+  method SET_DEPARTMENT_NAME.
+
+    department_name = im_department_name.
+
+  endmethod.

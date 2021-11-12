@@ -1,0 +1,25 @@
+class ZCL_3325_EMPLOYEE definition
+  public
+  inheriting from ZCL_3325_PERSON
+  create public .
+
+public section.
+
+  interfaces ZIF_3325_PRINTABLE .
+
+  methods CONSTRUCTOR
+    importing
+      value(IM_NAME) type STRING
+      value(IM_DOB) type D
+      value(IM_ADRESSE) type STRING
+      value(IM_BASE_SALARY) type I .
+  methods SET_BASE_SALARY
+    importing
+      value(IM_BASE_SALARY) type I .
+  methods GET_BASE_SALARY
+    returning
+      value(RE_BASE_SALARY) type I .
+  methods GET_SALARY
+    returning
+      value(RE_SALARY) type I .
+  methods PRINT .

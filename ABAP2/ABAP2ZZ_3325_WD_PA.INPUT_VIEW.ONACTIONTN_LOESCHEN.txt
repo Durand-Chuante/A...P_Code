@@ -1,0 +1,88 @@
+method ONACTIONTN_LOESCHEN .
+    DATA lo_nd_teilnahme TYPE REF TO if_wd_context_node.
+
+    DATA lo_el_teilnahme TYPE REF TO if_wd_context_element.
+    DATA ls_teilnahme TYPE wd_this->Element_teilnahme.
+    DATA message type string.
+*   navigate from <CONTEXT> to <TEILNAHME> via lead selection
+    lo_nd_teilnahme = wd_context->get_child_node( name = wd_this->wdctx_teilnahme ).
+
+*   @TODO handle non existant child
+*   IF lo_nd_teilnahme IS INITIAL.
+*   ENDIF.
+
+*   get element via lead selection
+    lo_el_teilnahme = lo_nd_teilnahme->get_element( ).
+*   @TODO handle not set lead selection
+    IF lo_el_teilnahme IS INITIAL.
+    ENDIF.
+
+*   get all declared attributes
+    lo_el_teilnahme->get_static_attributes(
+      IMPORTING
+        static_attributes = ls_teilnahme ).
+     DELETE ZZ3325_TEILNAHME FROM ls_teilnahme.
+     IF sy-subrc = 0.
+*        get message manager
+       data lo_api_controller     type ref to if_wd_controller.
+       data lo_message_manager    type ref to if_wd_message_manager.
+
+       lo_api_controller ?= wd_This->Wd_Get_Api( ).
+
+       CALL METHOD lo_api_controller->GET_MESSAGE_MANAGER
+         RECEIVING
+           MESSAGE_MANAGER = lo_message_manager
+           .
+
+*        report message
+       CALL METHOD lo_message_manager->REPORT_SUCCESS
+         EXPORTING
+           MESSAGE_TEXT              = 'Valid action'
+*           PARAMS                    =
+*           MSG_USER_DATA             =
+*           IS_PERMANENT              = ABAP_FALSE
+*           SCOPE_PERMANENT_MSG       = CO_MSG_SCOPE_CONTROLLER
+*           VIEW                      =
+*           SHOW_AS_POPUP             =
+*           CONTROLLER_PERMANENT_MSG  =
+*           MSG_INDEX                 =
+*           CANCEL_NAVIGATION         =
+*           ENABLE_MESSAGE_NAVIGATION =
+*           COMPONENT                 =
+         RECEIVING
+           MESSAGE_ID                = message
+           .
+       ELSE.
+*          get message manager
+*         data lo_api_controller     type ref to if_wd_controller.
+*         data lo_message_manager    type ref to if_wd_message_manager.
+
+         lo_api_controller ?= wd_This->Wd_Get_Api( ).
+
+         CALL METHOD lo_api_controller->GET_MESSAGE_MANAGER
+           RECEIVING
+             MESSAGE_MANAGER = lo_message_manager
+             .
+
+*          report message
+         CALL METHOD lo_message_manager->REPORT_ERROR_MESSAGE
+           EXPORTING
+             MESSAGE_TEXT              = 'Ivalid action'
+*             PARAMS                    =
+*             MSG_USER_DATA             =
+*             IS_PERMANENT              = ABAP_FALSE
+*             SCOPE_PERMANENT_MSG       = CO_MSG_SCOPE_CONTROLLER
+*             VIEW                      =
+*             SHOW_AS_POPUP             =
+*             CONTROLLER_PERMANENT_MSG  =
+*             MSG_INDEX                 =
+*             CANCEL_NAVIGATION         =
+*             ENABLE_MESSAGE_NAVIGATION =
+*             COMPONENT                 =
+           RECEIVING
+             MESSAGE_ID                = message
+             .
+
+     ENDIF.
+
+endmethod.

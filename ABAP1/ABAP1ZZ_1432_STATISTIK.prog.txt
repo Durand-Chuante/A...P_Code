@@ -1,0 +1,31 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_STATISTIK
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_STATISTIK.
+
+TYPES: BEGIN OF stat_type,
+  carrid like spfli-carrid,
+  carrname LIKE scarr-carrname,
+  dauer LIKE spfli-fltime,
+END OF stat_type.
+
+data: itab type STANDARD TABLE OF stat_type,
+      wa TYPE stat_type.
+
+select spfli~carrid carrname MAX( fltime ) as dauer
+   FROM spfli JOIN scarr on spfli~carrid = scarr~carrid
+   INTO CORRESPONDING FIELDS OF TABLE itab
+   WHERE fltype = ' '
+  GROUP BY spfli~carrid carrname
+  HAVING MAX( fltime ) GT 420
+  ORDER BY dauer DESCENDING.
+
+  LOOP AT itab into wa.
+
+  WRITE: wa-carrid,
+         wa-carrname,
+         wa-dauer,
+         / .
+  ENDLOOP.

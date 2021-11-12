@@ -1,0 +1,3 @@
+  method ZIF_3325_PRINTABLE~PRINT_OBJECT.
+    print( ).
+  endmethod.

@@ -1,0 +1,4 @@
+interface-pool.
+*"* class pool for interface ZIF_3325_PRINTABLE
+
+  include ZIF_3325_PRINTABLE============iu.

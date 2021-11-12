@@ -1,0 +1,34 @@
+FUNCTION Z_1432_F_CALC.
+*"----------------------------------------------------------------------
+*"*"Lokale Schnittstelle:
+*"  IMPORTING
+*"     REFERENCE(IM_OPERAND1) TYPE  I
+*"     REFERENCE(IM_OPERAND2) TYPE  I
+*"     REFERENCE(IM_OPERATOR) TYPE  C
+*"  EXPORTING
+*"     REFERENCE(EX_ERGEBNIS) TYPE  I
+*"  EXCEPTIONS
+*"      ZERO_DIVISION
+*"      INVALID_OPERATOR
+*"----------------------------------------------------------------------
+IF IM_OPERAND2 = 0 AND ( IM_OPERATOR = '/' or IM_OPERATOR = '%' ) .
+  RAISE ZERO_DIVISION.
+else.
+CASE IM_OPERATOR.
+  WHEN '+'.
+    EX_ERGEBNIS = IM_OPERAND1 + IM_OPERAND2.
+  WHEN '-'.
+    EX_ERGEBNIS = IM_OPERAND1 - IM_OPERAND2.
+  WHEN '*'.
+    EX_ERGEBNIS = IM_OPERAND1 * IM_OPERAND2.
+  WHEN '/'.
+    EX_ERGEBNIS = IM_OPERAND1 / IM_OPERAND2.
+  WHEN '%'.
+    EX_ERGEBNIS = IM_OPERAND1 mod IM_OPERAND2.
+  WHEN OTHERS.
+    RAISE INVALID_OPERATOR.
+ENDCASE.
+ENDIF.
+
+
+ENDFUNCTION.

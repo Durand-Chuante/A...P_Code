@@ -1,0 +1,5 @@
+  method GET_DEPARTMENT_NAME.
+
+   re_department_name = department_name.
+
+  endmethod.

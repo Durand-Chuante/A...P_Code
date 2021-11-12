@@ -1,0 +1,10 @@
+*&---------------------------------------------------------------------*
+*& Include ZZ_1432_AVERWALTUNG_TOP                  - Modulpool        ZZ_1432_AVERWALTUNG
+*&---------------------------------------------------------------------*
+PROGRAM ZZ1432_ANGEBOT MESSAGE-ID ZZ_1432_MESSAGES.
+
+TABLES: ZZ1432_ANGEBOT.
+
+DATA wa_angebot TYPE ZZ1432_ANGEBOT.
+
+DATA ok_code LIKE sy-ucomm.

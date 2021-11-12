@@ -1,0 +1,4 @@
+method ONACTIONZURUEC .
+  wd_this->fire_to_input_view_plg(
+  ).
+endmethod.

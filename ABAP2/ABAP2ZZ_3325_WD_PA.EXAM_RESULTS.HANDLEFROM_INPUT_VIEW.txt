@@ -1,0 +1,8 @@
+method HANDLEFROM_INPUT_VIEW .
+  DATA lo_COMPONENTCONTROLLER TYPE REF TO IG_COMPONENTCONTROLLER .
+  lo_COMPONENTCONTROLLER =   wd_this->get_componentcontroller_ctr( ).
+
+    lo_componentcontroller->read_pruefung(
+    ).
+
+endmethod.

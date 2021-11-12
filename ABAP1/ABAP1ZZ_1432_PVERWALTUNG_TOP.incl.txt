@@ -1,0 +1,11 @@
+*&---------------------------------------------------------------------*
+*& Include ZZ_1432_PVERWALTUNG_TOP                  - Modulpool        ZZ_1432_PVERWALTUNG
+*&---------------------------------------------------------------------*
+PROGRAM ZZ_1432_PVERWALTUNG  MESSAGE-ID ZZ_1432_MESSAGES.
+
+TABLES: ZZ1432_PROSP.
+
+DATA wa_prosp TYPE ZZ1432_PROSP.
+
+
+DATA ok_code LIKE sy-ucomm.

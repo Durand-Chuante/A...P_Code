@@ -1,0 +1,8 @@
+interface ZIF_EX_CBADI3325
+  public .
+
+
+  methods SHOW_CUSTOMER_DETAILS default ignore
+    importing
+      !IM_SBOOK type SBOOK .
+endinterface.

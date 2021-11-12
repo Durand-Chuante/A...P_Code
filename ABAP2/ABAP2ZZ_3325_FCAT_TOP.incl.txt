@@ -1,0 +1,29 @@
+
+*&---------------------------------------------------------------------*
+*& Include ZZ_3325_FCAT_TOP                         - Modulpool        ZZ_3325_FCAT
+*&---------------------------------------------------------------------*
+PROGRAM ZZ_3325_FCAT.
+
+TABLES stravelag.
+TABLES SCUSTOM.
+
+TYPES: BEGIN OF ty_book,
+  name type s_custname,
+  city type city,
+  country TYPE s_country.
+  INCLUDE TYPE SBOOK.
+TYPES END OF ty_book.
+
+DATA:  it_fkat TYPE TABLE OF LVC_S_FCAT, "Interne Tabelle Feldkatalog
+       it_book TYPE TABLE OF ty_book, "Interne Buchungstabelle
+       wa_book TYPE ty_book,
+       wa TYPE LVC_S_FCAT, "Arbeitbereich Feldkatalog.
+       it_scustom TYPE TABLE OF SCUSTOM,
+       wa_scustom type SCUSTOM,
+       wa_sbook TYPE sbook.
+
+
+
+DATA: ok_code like sy-ucomm,
+      r_container TYPE REF TO cl_gui_custom_container,
+      r_alv TYPE REF TO cl_gui_alv_grid.

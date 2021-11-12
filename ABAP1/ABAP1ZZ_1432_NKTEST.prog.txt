@@ -1,0 +1,16 @@
+*&---------------------------------------------------------------------*
+*& Report ZZ_1432_NKTEST
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZ_1432_NKTEST.
+
+DATA number TYPE i.
+
+CALL FUNCTION 'NUMBER_GET_NEXT'
+  EXPORTING
+    nr_range_nr = '1'
+    object = 'ZZ_1432_NK'
+  IMPORTING
+    number = number.
+WRITE: 'Number ', number, ' wurde gliefert.'.

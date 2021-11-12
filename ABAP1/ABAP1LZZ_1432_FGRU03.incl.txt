@@ -1,0 +1,39 @@
+FUNCTION Z_1432_SANGEBOT.
+*"----------------------------------------------------------------------
+*"*"Lokale Schnittstelle:
+*"  IMPORTING
+*"     REFERENCE(CARRID1) TYPE  SPFLI-CARRID
+*"     REFERENCE(CONNID1) TYPE  SPFLI-CONNID
+*"     REFERENCE(CARRID2) TYPE  SPFLI-CARRID
+*"     REFERENCE(CONNID2) TYPE  SPFLI-CONNID
+*"  EXPORTING
+*"     REFERENCE(VERFUEGBAR) TYPE  INTEGER4
+*"----------------------------------------------------------------------
+TABLES SFLIGHT.
+DATA: itab_hinflug TYPE TABLE OF sflight,
+      itab_rueckflug TYPE TABLE OF sflight,
+      wa_hinflug TYPE sflight,
+      wa_rueckflug TYPE sflight.
+
+SELECT * FROM SFLIGHT INTO TABLE itab_hinflug
+         WHERE connid = connid1 AND carrid = carrid1.
+IF wa_hinflug-seatsmax + wa_hinflug-seatsmax_b + wa_hinflug-seatsmax_f -
+   wa_hinflug-seatsocc - wa_hinflug-seatsocc_b - wa_hinflug-seatsocc_f > 0.
+
+      SELECT * FROM SFLIGHT INTO TABLE itab_rueckflug
+           WHERE connid = connid2 AND carrid = carrid2.
+
+      IF wa_rueckflug-seatsmax + wa_rueckflug-seatsmax_b + wa_rueckflug-seatsmax_f -
+         wa_rueckflug-seatsocc - wa_rueckflug-seatsocc_b - wa_rueckflug-seatsocc_f > 0.
+
+               VERFUEGBAR = 1.
+      ENDIF.
+
+ELSE.
+  VERFUEGBAR = 0.
+ENDIF.
+
+
+
+
+ENDFUNCTION.

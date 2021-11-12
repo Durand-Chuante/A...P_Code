@@ -1,0 +1,2 @@
+method HANDLEFROM_EDIT_STUDENT .
+endmethod.
